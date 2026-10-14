@@ -1,0 +1,588 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSpace Academy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            color: #1e293b;
+        }
+
+        header {
+            background: linear-gradient(120deg, #172554, #2563eb);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        header span {
+            color: #67e8f9;
+        }
+
+        nav button {
+            padding: 10px 18px;
+            margin: 4px;
+            border: 1px solid white;
+            border-radius: 20px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: white;
+            color: #172554;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .halaman {
+            display: none;
+        }
+
+        .halaman.active {
+            display: block;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #dbeafe, #ecfeff);
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            color: #172554;
+            font-size: 38px;
+        }
+
+        .hero p {
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        h2 {
+            color: #172554;
+        }
+
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px #00000010;
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 18px;
+        }
+
+        .card h3 {
+            color: #172554;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .form-container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        form,
+        .hasil {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px #00000010;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label,
+        legend {
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+        }
+
+        .radio-group input {
+            width: auto;
+        }
+
+        .form-buttons {
+            margin-top: 22px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-reset {
+            background: #e2e8f0;
+            color: #1e293b;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .hasil {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .hasil h3 {
+            color: #15803d;
+        }
+
+        .hasil p {
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        footer {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 700px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h2>Code<span>Space</span> Academy</h2>
+
+        <nav>
+            <button class="nav-btn active"
+                    onclick="tampilHalaman('gallery', this)">
+                Gallery
+            </button>
+
+            <button class="nav-btn"
+                    onclick="tampilHalaman('pendaftaran', this)">
+                Pendaftaran
+            </button>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- HALAMAN GALLERY -->
+        <section id="gallery" class="halaman active">
+
+            <div class="hero">
+                <h1>Mulai Perjalanan Coding-mu!</h1>
+
+                <p>
+                    Belajar pemrograman dari dasar bersama CodeSpace Academy.
+                    Kembangkan keterampilan coding melalui pelatihan,
+                    praktik langsung, dan kerja sama tim.
+                </p>
+
+                <button class="btn"
+                        onclick="tampilHalaman('pendaftaran')">
+                    Daftar Sekarang
+                </button>
+            </div>
+
+            <h2>Gallery Kegiatan Pelatihan</h2>
+
+            <div class="gallery">
+
+                <div class="card">
+                    <img
+                        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80"
+                        alt="Pelatihan komputer">
+
+                    <div class="card-content">
+                        <h3>Dasar Pemrograman</h3>
+                        <p>
+                            Peserta mempelajari dasar-dasar pemrograman,
+                            seperti variabel, percabangan, perulangan,
+                            dan logika untuk menyelesaikan masalah.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img
+                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
+                        alt="Pelatihan web development">
+
+                    <div class="card-content">
+                        <h3>Web Development</h3>
+                        <p>
+                            Peserta berlatih membuat website menggunakan
+                            HTML, CSS, dan JavaScript untuk membangun
+                            halaman web yang menarik dan interaktif.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img
+                        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+                        alt="Diskusi kelompok">
+
+                    <div class="card-content">
+                        <h3>Diskusi dan Kerja Tim</h3>
+                        <p>
+                            Peserta bekerja sama dalam kelompok,
+                            bertukar ide, dan berdiskusi untuk
+                            menyelesaikan proyek pemrograman.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- HALAMAN PENDAFTARAN -->
+        <section id="pendaftaran" class="halaman">
+
+            <div class="form-container">
+
+                <h1>Form Pendaftaran</h1>
+
+                <p>
+                    Silakan isi data diri dan pilih bahasa pemrograman
+                    yang ingin kamu pelajari.
+                </p>
+
+                <form id="formPendaftaran">
+
+                    <div class="form-grid">
+
+                        <div class="field">
+                            <label for="nik">NIK</label>
+                            <input
+                                type="text"
+                                id="nik"
+                                name="nik"
+                                placeholder="Masukkan 16 digit NIK"
+                                inputmode="numeric"
+                                pattern="[0-9]{16}"
+                                maxlength="16"
+                                required>
+                        </div>
+
+                        <div class="field">
+                            <label for="nama">Nama Lengkap</label>
+                            <input
+                                type="text"
+                                id="nama"
+                                name="nama"
+                                placeholder="Masukkan nama lengkap"
+                                required>
+                        </div>
+
+                        <fieldset class="field">
+                            <legend>Jenis Kelamin</legend>
+
+                            <div class="radio-group">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="gender"
+                                        value="Laki-laki"
+                                        required>
+                                    Laki-laki
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="gender"
+                                        value="Perempuan">
+                                    Perempuan
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <div class="field">
+                            <label for="hp">No. HP</label>
+                            <input
+                                type="tel"
+                                id="hp"
+                                name="hp"
+                                placeholder="Masukkan nomor HP"
+                                required>
+                        </div>
+
+                        <div class="field full">
+                            <label for="alamat">Alamat</label>
+                            <textarea
+                                id="alamat"
+                                name="alamat"
+                                placeholder="Masukkan alamat lengkap"
+                                required></textarea>
+                        </div>
+
+                        <div class="field full">
+                            <label for="bahasa">
+                                Bahasa Pemrograman yang Diminati
+                            </label>
+
+                            <select id="bahasa" name="bahasa" required>
+                                <option value="">-- Pilih Bahasa --</option>
+                                <option value="Python">Python</option>
+                                <option value="Java">Java</option>
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="C++">C++</option>
+                                <option value="PHP">PHP</option>
+                                <option value="Kotlin">Kotlin</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn">
+                            Simpan
+                        </button>
+
+                        <button type="reset" class="btn-reset">
+                            Reset
+                        </button>
+                    </div>
+
+                </form>
+
+
+                <!-- HASIL PENDAFTARAN -->
+                <div id="hasil" class="hasil">
+                    <h3>Pendaftaran Berhasil Disimpan!</h3>
+
+                    <p><strong>NIK:</strong>
+                        <span id="hasilNik"></span>
+                    </p>
+
+                    <p><strong>Nama Lengkap:</strong>
+                        <span id="hasilNama"></span>
+                    </p>
+
+                    <p><strong>Jenis Kelamin:</strong>
+                        <span id="hasilGender"></span>
+                    </p>
+
+                    <p><strong>No. HP:</strong>
+                        <span id="hasilHp"></span>
+                    </p>
+
+                    <p><strong>Alamat:</strong>
+                        <span id="hasilAlamat"></span>
+                    </p>
+
+                    <p><strong>Bahasa Pemrograman:</strong>
+                        <span id="hasilBahasa"></span>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 CodeSpace Academy | Belajar Coding, Bangun Masa Depan</p>
+    </footer>
+
+
+    <script>
+        // Fungsi untuk berpindah halaman
+        function tampilHalaman(id, tombol) {
+            const halaman = document.querySelectorAll('.halaman');
+
+            halaman.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            document.getElementById(id).classList.add('active');
+
+            const tombolNav = document.querySelectorAll('.nav-btn');
+
+            tombolNav.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            if (tombol) {
+                tombol.classList.add('active');
+            } else {
+                tombolNav.forEach(function(item) {
+                    if (item.textContent.trim().toLowerCase() === id) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+
+        // Proses penyimpanan form
+        const form = document.getElementById('formPendaftaran');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Menampilkan dialog konfirmasi
+            const konfirmasi = confirm(
+                'Apakah Anda sudah yakin untuk menyimpan?'
+            );
+
+            // Jika pengguna memilih Cancel
+            if (!konfirmasi) {
+                return;
+            }
+
+            // Mengambil data dari form
+            const nik = document.getElementById('nik').value;
+            const nama = document.getElementById('nama').value;
+
+            const gender = document.querySelector(
+                'input[name="gender"]:checked'
+            ).value;
+
+            const hp = document.getElementById('hp').value;
+            const alamat = document.getElementById('alamat').value;
+            const bahasa = document.getElementById('bahasa').value;
+
+            // Menampilkan hasil sesuai input pengguna
+            document.getElementById('hasilNik').textContent = nik;
+            document.getElementById('hasilNama').textContent = nama;
+            document.getElementById('hasilGender').textContent = gender;
+            document.getElementById('hasilHp').textContent = hp;
+            document.getElementById('hasilAlamat').textContent = alamat;
+            document.getElementById('hasilBahasa').textContent = bahasa;
+
+            // Menampilkan bagian hasil
+            document.getElementById('hasil').style.display = 'block';
+
+            document.getElementById('hasil').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+
+        // Menghapus hasil saat form di-reset
+        form.addEventListener('reset', function() {
+            document.getElementById('hasil').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
+```
